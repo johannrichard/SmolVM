@@ -25,6 +25,7 @@ from smolvm.exceptions import SmolVMError
 from smolvm.presets import (
     CLAUDE_CODE_PRESET,
     CODEX_PRESET,
+    COPILOT_PRESET,
     GIT_HOST_CONFIGS,
     HERMES_PRESET,
     OPENCLAW_PRESET,
@@ -71,7 +72,7 @@ class TestRegistry:
     """Built-in preset registration."""
 
     def test_builtin_presets_registered(self) -> None:
-        assert preset_names() == ["claude-code", "codex", "hermes", "openclaw", "pi"]
+        assert preset_names() == ["claude-code", "codex", "copilot", "hermes", "openclaw", "pi"]
 
     def test_list_presets_sorted_by_name(self) -> None:
         names = [p.name for p in list_presets()]
@@ -79,6 +80,7 @@ class TestRegistry:
         assert {p.name for p in list_presets()} == {
             "codex",
             "claude-code",
+            "copilot",
             "hermes",
             "openclaw",
             "pi",
@@ -90,6 +92,9 @@ class TestRegistry:
     def test_get_preset_returns_claude_code(self) -> None:
         assert get_preset("claude-code") is CLAUDE_CODE_PRESET
 
+    def test_get_preset_returns_copilot(self) -> None:
+        assert get_preset("copilot") is COPILOT_PRESET
+
     def test_get_preset_returns_pi(self) -> None:
         assert get_preset("pi") is PI_PRESET
 
@@ -100,7 +105,10 @@ class TestRegistry:
         assert get_preset("hermes") is HERMES_PRESET
 
     def test_unknown_preset_lists_available(self) -> None:
-        with pytest.raises(KeyError, match="Available: claude-code, codex, hermes, openclaw, pi"):
+        with pytest.raises(
+            KeyError,
+            match="Available: claude-code, codex, copilot, hermes, openclaw, pi",
+        ):
             get_preset("nonexistent")
 
 
@@ -118,6 +126,27 @@ class TestCodexPreset:
     def test_codex_install_runs_npm_install_codex(self) -> None:
         assert "@openai/codex" in CODEX_PRESET.install_script
         assert "npm install -g" in CODEX_PRESET.install_script
+
+
+class TestCopilotPreset:
+    """Copilot preset wires up the right keys and install command."""
+
+    def test_copilot_preset_shape(self) -> None:
+        assert COPILOT_PRESET.name == "copilot"
+        assert COPILOT_PRESET.launch_command == "copilot"
+        assert COPILOT_PRESET.host_env_vars == ("COPILOT_GITHUB_TOKEN",)
+        assert COPILOT_PRESET.host_configs == ()
+        assert COPILOT_PRESET.host_keychain_secrets == ()
+
+    def test_copilot_install_runs_npm_install(self) -> None:
+        assert "@github/copilot" in COPILOT_PRESET.install_script
+        assert "npm install -g" in COPILOT_PRESET.install_script
+
+    def test_copilot_no_env_hint_points_to_token_or_login(self) -> None:
+        assert COPILOT_PRESET.no_env_hint == (
+            "No Copilot token found. Set COPILOT_GITHUB_TOKEN on your machine, or run"
+            " 'copilot login' inside the sandbox."
+        )
 
 
 class TestClaudeCodePreset:

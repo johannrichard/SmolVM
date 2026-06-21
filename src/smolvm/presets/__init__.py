@@ -31,6 +31,7 @@ from smolvm.presets._install import (
 from smolvm.presets._types import HostConfigCopy, HostKeychainSecret, Preset
 from smolvm.presets.claude_code import CLAUDE_CODE_PRESET
 from smolvm.presets.codex import CODEX_PRESET
+from smolvm.presets.copilot import COPILOT_PRESET
 from smolvm.presets.hermes import HERMES_PRESET
 from smolvm.presets.openclaw import OPENCLAW_PRESET
 from smolvm.presets.pi import PI_PRESET
@@ -38,6 +39,7 @@ from smolvm.presets.pi import PI_PRESET
 _BUILTIN_PRESETS: tuple[Preset, ...] = (
     CODEX_PRESET,
     CLAUDE_CODE_PRESET,
+    COPILOT_PRESET,
     HERMES_PRESET,
     OPENCLAW_PRESET,
     PI_PRESET,
@@ -87,6 +89,7 @@ def preset_command_names() -> list[str]:
 __all__ = [
     "CLAUDE_CODE_PRESET",
     "CODEX_PRESET",
+    "COPILOT_PRESET",
     "GIT_HOST_CONFIGS",
     "HERMES_PRESET",
     "OPENCLAW_PRESET",
