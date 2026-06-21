@@ -3079,6 +3079,7 @@ class TestCliStart:
         out = capsys.readouterr().out
         assert "codex" in out
         assert "claude" in out
+        assert "copilot" in out
         assert "claude-code" not in out
         assert "\n  env" not in out
         assert "\n  file" not in out

@@ -63,7 +63,7 @@ Each microVM boots in milliseconds, runs any code or software you throw at it, p
 <tr>
 <td width="50%" valign="top">
 <p><img src="https://api.iconify.design/lucide/bot.svg?color=%236e7681" width="24" height="24" align="absmiddle" alt=""> <strong>Coding agents</strong></p>
-<p>One command to launch a sandbox with Claude Code, Codex, or Pi pre-installed and git credentials forwarded.</p>
+<p>One command to launch a sandbox with Claude Code, Codex, GitHub Copilot, or Pi pre-installed and git credentials forwarded.</p>
 <p><a href="#coding-agents">Read more →</a></p>
 </td>
 <td width="50%" valign="top">
@@ -173,7 +173,7 @@ Windows guests need a Linux host with KVM. Host mounts, network controls, and sn
 
 It sucks to “press enter and accept changes” every few seconds while using coding agents. SmolVM makes it easy to isolate the agent coding environment from the host (laptops).
 
-With a single command you get a claude/codex pre-installed sandbox ready with git credential to make you build a billion dollar business without making any mistake ;)
+With a single command you get a claude/codex/copilot pre-installed sandbox ready with git credential to make you build a billion dollar business without making any mistake ;)
 
 Video tutorial:
 
@@ -183,6 +183,8 @@ Video tutorial:
 smolvm codex start  # start a new environment with codex preinstalled
 
 smolvm claude start  # start a new environment with claude preinstalled
+
+smolvm copilot start  # start a new environment with GitHub Copilot preinstalled
 
 smolvm pi start  # start a new environment with the Pi coding agent preinstalled
 ```
